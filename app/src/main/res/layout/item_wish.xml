@@ -9,18 +9,17 @@
     android:elevation="4dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/head_imeage"
+        android:id="@+id/head_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:placeholderImage="@drawable/maintop"
-        app:placeholderImageScaleType="centerCrop"
         app:roundBottomLeft="false"
         app:roundBottomRight="false"
         app:roundedCornerRadius="4dp"
-        app:viewAspectRatio="2.5" />
+        app:viewAspectRatio="2.5"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/title"
@@ -32,7 +31,7 @@
         android:textColor="@color/colorTextBlack"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/simpleDraweeView2" />
+        app:layout_constraintTop_toBottomOf="@+id/head_image" />
 
     <TextView
         android:id="@+id/time"

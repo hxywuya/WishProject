@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.example.xiaoyihaung.wish.R
 import com.example.xiaoyihaung.wish.model.Wish
 import com.example.xiaoyihaung.wish.util.CommonUtil
+import com.facebook.drawee.view.SimpleDraweeView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +24,11 @@ class WishAdapter(private var mList:List<Wish>):RecyclerView.Adapter<WishAdapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val mitem = mList[position]
+
+        if (mitem.images.size > 0){
+            holder.mHeaderImage.visibility = View.VISIBLE
+            holder.mHeaderImage.setImageURI(mitem.images[0])
+        }
 
         holder.mTitle.text = mitem.title
         holder.mTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(mitem.time * 1000))
@@ -50,12 +56,14 @@ class WishAdapter(private var mList:List<Wish>):RecyclerView.Adapter<WishAdapter
     }
 
     inner class ViewHolder(val mView: View): RecyclerView.ViewHolder(mView) {
+        val mHeaderImage: SimpleDraweeView
         val mTitle: TextView
         val mTime: TextView
         val mTimeLimit: TextView
         val mContent: TextView
 
         init {
+            mHeaderImage = mView.findViewById(R.id.head_image) as SimpleDraweeView
             mTitle = mView.findViewById(R.id.title) as TextView
             mTime = mView.findViewById(R.id.time) as TextView
             mTimeLimit = mView.findViewById(R.id.time_limit) as TextView
