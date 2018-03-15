@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/t1"
+        android:checkable="true"
+        android:title="主页"
+        android:icon="@drawable/ic_menu_white_18dp"/>
+
+    <item
+        android:id="@+id/t2"
+        android:checkable="true"
+        android:title="家庭愿望"
+        android:icon="@drawable/ic_menu_white_18dp"/>
+
+    <item
+        android:id="@+id/t3"
+        android:checkable="true"
+        android:title="个人愿望"
+        android:icon="@drawable/ic_menu_white_18dp"/>
+
+    <item
+        android:id="@+id/t4"
+        android:checkable="true"
+        android:title="残念"
+        android:icon="@drawable/ic_menu_white_18dp"/>
+</menu>
