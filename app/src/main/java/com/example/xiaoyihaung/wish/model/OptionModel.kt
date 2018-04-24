@@ -2,6 +2,7 @@ package com.example.xiaoyihaung.wish.model
 
 import android.util.Log
 import com.example.xiaoyihaung.wish.WishDataBase
+import com.example.xiaoyihaung.wish.data.DBInfo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.raizlabs.android.dbflow.annotation.Column
@@ -19,7 +20,7 @@ class OptionModel(
         @Column
         var content: String? = null  // 选项内容
 ) {
-    open fun getDataBaseInfo() : HashMap<String, String>? {
+    open fun getDataBaseInfo() : DBInfo? {
         val info = (select
                 from this::class
                 where(OptionModel_Table.name eq "DBInfo")).querySingle()
@@ -27,7 +28,7 @@ class OptionModel(
         if (info != null) {
             Log.d("DataBase", info.content)
             val gson = Gson()
-            val hminfo: HashMap<String, String> = gson.fromJson(info.content, object : TypeToken<HashMap<String, String>>(){}.type)
+            val hminfo: DBInfo = gson.fromJson(info.content, DBInfo::class.java)
             return hminfo
 //            return info.content!!
         }

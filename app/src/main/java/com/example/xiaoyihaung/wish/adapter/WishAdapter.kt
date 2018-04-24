@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.xiaoyihaung.wish.R
-import com.example.xiaoyihaung.wish.model.Wish
+import com.example.xiaoyihaung.wish.data.Wish
 import com.example.xiaoyihaung.wish.util.CommonUtil
 import com.facebook.drawee.view.SimpleDraweeView
 import java.text.SimpleDateFormat

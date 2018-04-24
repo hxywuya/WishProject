@@ -28,7 +28,7 @@ class LaunchActivity : BaseActivity() {
         val optModel= OptionModel()
         val dbInfo = optModel.getDataBaseInfo()
         if (dbInfo != null) {
-            Log.d("DBTEST", "Ver:" + dbInfo.get("version"))
+            Log.d("DBTEST", "Ver:" + dbInfo.version + " Create Time:" + dbInfo.create_time + " Update Time:" + dbInfo.update_time)
         }
 
         timer.schedule(task, 3000)

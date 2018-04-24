@@ -1,6 +1,6 @@
 package com.example.xiaoyihaung.wish.dummy
 
-import com.example.xiaoyihaung.wish.model.Wish
+import com.example.xiaoyihaung.wish.data.Wish
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

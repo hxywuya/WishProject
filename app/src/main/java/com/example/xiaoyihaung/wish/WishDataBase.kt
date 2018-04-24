@@ -1,10 +1,11 @@
 package com.example.xiaoyihaung.wish
 
 import android.util.Log
+import com.example.xiaoyihaung.wish.data.DBInfo
 import com.example.xiaoyihaung.wish.model.OptionModel
+import com.google.gson.Gson
 import com.raizlabs.android.dbflow.annotation.Database
 import com.raizlabs.android.dbflow.annotation.Migration
-import com.raizlabs.android.dbflow.kotlinextensions.exists
 import com.raizlabs.android.dbflow.kotlinextensions.save
 import com.raizlabs.android.dbflow.sql.migration.BaseMigration
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper
@@ -26,8 +27,10 @@ object WishDataBase {
         override fun migrate(database: DatabaseWrapper) {
             Log.d("DataBase", "数据库正在初始化")
             var optionModel = OptionModel()
+            val gson = Gson()
+            val dbInfo = DBInfo(VERSION,System.currentTimeMillis())
             optionModel.name = "DBInfo"
-            optionModel.content = "{\"version\": " + VERSION + ", \"create_time\": " + System.currentTimeMillis() + ", \"update_time\": 0}"
+            optionModel.content = gson.toJson(dbInfo)
             optionModel.save(database)
         }
 

@@ -14,7 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.xiaoyihaung.wish.adapter.WishAdapter
 import com.example.xiaoyihaung.wish.dummy.DummyWishs
-import com.example.xiaoyihaung.wish.model.Wish
+import com.example.xiaoyihaung.wish.data.Wish
 import com.example.xiaoyihaung.wish.util.CommonUtil
 import com.example.xiaoyihaung.wish.util.GridSpacingItemDecoration
 

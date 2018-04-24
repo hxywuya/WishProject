@@ -5,7 +5,7 @@ import android.util.Log
 import com.example.xiaoyihaung.wish.APIServer
 import com.example.xiaoyihaung.wish.BaseActivity
 import com.example.xiaoyihaung.wish.R
-import com.example.xiaoyihaung.wish.model.Wish
+import com.example.xiaoyihaung.wish.data.Wish
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*

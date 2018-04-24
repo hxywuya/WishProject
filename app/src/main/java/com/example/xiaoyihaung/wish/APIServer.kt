@@ -1,11 +1,10 @@
 package com.example.xiaoyihaung.wish
 
 import android.util.Log
-import com.example.xiaoyihaung.wish.model.Wish
+import com.example.xiaoyihaung.wish.data.Wish
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
-import java.lang.reflect.Type
 import kotlin.concurrent.thread
 
 class APIServer {

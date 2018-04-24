@@ -1,4 +1,4 @@
-package com.example.xiaoyihaung.wish.model
+package com.example.xiaoyihaung.wish.data
 
 /**
  * Created by XiaoYi.Haung on 2018/3/9.
