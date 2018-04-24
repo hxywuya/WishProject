@@ -6,7 +6,7 @@ import android.util.Log
 /**
  * Created by XiaoYi.Haung on 2018/3/7.
  */
-object ActivityCollector {
+object ActivityController {
 
     var activities: MutableList<Activity> = mutableListOf()
 

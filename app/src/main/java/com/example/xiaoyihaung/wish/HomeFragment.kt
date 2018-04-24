@@ -1,20 +1,24 @@
 package com.example.xiaoyihaung.wish
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.xiaoyihaung.wish.adapter.WishAdapter
 import com.example.xiaoyihaung.wish.dummy.DummyWishs
+import com.example.xiaoyihaung.wish.model.Wish
 import com.example.xiaoyihaung.wish.util.CommonUtil
 import com.example.xiaoyihaung.wish.util.GridSpacingItemDecoration
-import kotlinx.android.synthetic.main.fragment_home.*
+
+
 
 
 /**
@@ -45,11 +49,33 @@ class HomeFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view: View = inflater!!.inflate(R.layout.fragment_home, container, false)
+        // 初始化列表
         val wishList: RecyclerView = view.findViewById(R.id.wish_list)
         wishList.layoutManager = LinearLayoutManager(context)
-        wishList.adapter = WishAdapter(DummyWishs.WISHS)
         wishList.addItemDecoration(GridSpacingItemDecoration(1, CommonUtil.dp2px(context, 12f), true))
+        wishList.adapter = WishAdapter(DummyWishs.WISHS)
+        // 注册加载事件
+        val refreshLayout = view.findViewById(R.id.refresh_layput) as SwipeRefreshLayout
+        refreshLayout.setOnRefreshListener {
+            val apiServer = APIServer()
+            apiServer.getWishList(object: APIServer.Callback<Wish>{
+                override fun onSuccess(data: List<Wish>) {
+                    Log.d("kwwl", "hahahahaha" + data[0].content + "size:" + data[0].images.size)
+                    refreshLayout.isRefreshing = false
+                    val act = context as Activity
+                    act.runOnUiThread {
+                        wishList.adapter = WishAdapter(data)
+                    }
 
+                }
+
+                override fun onFail(msg: String) {
+                    refreshLayout.isRefreshing = false
+                }
+            })
+        }
+//        refreshLayout.measure(0,0)
+//        refreshLayout.isRefreshing = true
         return view
     }
 

@@ -2,7 +2,12 @@ package com.example.xiaoyihaung.wish
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.example.xiaoyihaung.wish.activity.MainActivity
+import com.example.xiaoyihaung.wish.model.OptionModel
+import com.example.xiaoyihaung.wish.model.WishModel
+import com.example.xiaoyihaung.wish.model.WishModel_Table.uid
+import com.raizlabs.android.dbflow.kotlinextensions.*
 import java.util.*
 
 class LaunchActivity : BaseActivity() {
@@ -19,6 +24,12 @@ class LaunchActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
+
+        val optModel= OptionModel()
+        val dbInfo = optModel.getDataBaseInfo()
+        if (dbInfo != null) {
+            Log.d("DBTEST", "Ver:" + dbInfo.get("version"))
+        }
 
         timer.schedule(task, 3000)
     }

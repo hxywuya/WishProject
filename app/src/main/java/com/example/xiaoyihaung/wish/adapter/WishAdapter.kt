@@ -30,14 +30,14 @@ class WishAdapter(private var mList:List<Wish>):RecyclerView.Adapter<WishAdapter
             holder.mHeaderImage.setImageURI(mitem.images[0])
         }
 
-        holder.mTitle.text = mitem.title
-        holder.mTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(mitem.time * 1000))
+//        holder.mTitle.text = mitem.title
+        holder.mTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(mitem.create_time * 1000))
 
         var interval = ""
-        if (mitem.finishTime > 0) {
-            interval = "达成日期" + SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(mitem.finishTime * 1000))
+        if (mitem.finish_time > 0) {
+            interval = "达成日期" + SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(mitem.finish_time * 1000))
         } else {
-            interval = CommonUtil.timeInterval(mitem.timeLimit, System.currentTimeMillis() / 1000)
+            interval = CommonUtil.timeInterval(mitem.time_limit, System.currentTimeMillis() / 1000)
             if (interval == "out") {
                 interval = "残念，许愿失败"
             }
@@ -57,14 +57,12 @@ class WishAdapter(private var mList:List<Wish>):RecyclerView.Adapter<WishAdapter
 
     inner class ViewHolder(val mView: View): RecyclerView.ViewHolder(mView) {
         val mHeaderImage: SimpleDraweeView
-        val mTitle: TextView
         val mTime: TextView
         val mTimeLimit: TextView
         val mContent: TextView
 
         init {
             mHeaderImage = mView.findViewById(R.id.head_image) as SimpleDraweeView
-            mTitle = mView.findViewById(R.id.title) as TextView
             mTime = mView.findViewById(R.id.time) as TextView
             mTimeLimit = mView.findViewById(R.id.time_limit) as TextView
             mContent = mView.findViewById(R.id.content) as TextView

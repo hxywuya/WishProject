@@ -22,19 +22,19 @@ open class BaseActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("BaseActivity", javaClass.simpleName)
-        ActivityCollector.addActivity(this)
+        ActivityController.addActivity(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        ActivityCollector.removeActivity(this)
+        ActivityController.removeActivity(this)
     }
 
     override fun onBackPressed() {
 //        super.onBackPressed()
         Log.d("ActionBarLayout", CommonUtil.px2dp(this,action_bar.height.toFloat()).toString())
         if (allowExit) {
-            ActivityCollector.finishAll()
+            ActivityController.finishAll()
         } else {
             Toast.makeText(this, "再按一下返回键退出", Toast.LENGTH_SHORT).show()
             baseTimer = Timer()
