@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.xiaoyihaung.wish.R
-import com.example.xiaoyihaung.wish.data.Wish
+import com.example.xiaoyihaung.wish.model.WishModel.Wish
 import com.example.xiaoyihaung.wish.util.CommonUtil
 import com.facebook.drawee.view.SimpleDraweeView
 import java.text.SimpleDateFormat
@@ -15,7 +15,7 @@ import java.util.*
 /**
  * Created by XiaoYi.Haung on 2018/3/12.
  */
-class WishAdapter(private var mList:List<Wish>):RecyclerView.Adapter<WishAdapter.ViewHolder>() {
+class WishAdapter(private var mList:MutableList<Wish>):RecyclerView.Adapter<WishAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_wish, parent, false)
@@ -28,9 +28,10 @@ class WishAdapter(private var mList:List<Wish>):RecyclerView.Adapter<WishAdapter
         if (mitem.images.size > 0){
             holder.mHeaderImage.visibility = View.VISIBLE
             holder.mHeaderImage.setImageURI(mitem.images[0])
+        } else {
+            holder.mHeaderImage.visibility = View.GONE
         }
 
-//        holder.mTitle.text = mitem.title
         holder.mTime.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(mitem.create_time * 1000))
 
         var interval = ""
@@ -53,6 +54,16 @@ class WishAdapter(private var mList:List<Wish>):RecyclerView.Adapter<WishAdapter
 
     override fun getItemCount(): Int {
         return mList.size
+    }
+
+    open fun add(wish: Wish) {
+        mList.add(wish)
+        notifyDataSetChanged()
+    }
+
+    open fun add(position: Int, wishList: List<Wish>) {
+        mList.addAll(position, wishList)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(val mView: View): RecyclerView.ViewHolder(mView) {

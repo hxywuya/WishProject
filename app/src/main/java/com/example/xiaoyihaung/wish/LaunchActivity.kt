@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import com.example.xiaoyihaung.wish.activity.MainActivity
 import com.example.xiaoyihaung.wish.model.OptionModel
-import com.example.xiaoyihaung.wish.model.WishModel
-import com.example.xiaoyihaung.wish.model.WishModel_Table.uid
-import com.raizlabs.android.dbflow.kotlinextensions.*
 import java.util.*
 
 class LaunchActivity : BaseActivity() {
@@ -28,7 +25,7 @@ class LaunchActivity : BaseActivity() {
         val optModel= OptionModel()
         val dbInfo = optModel.getDataBaseInfo()
         if (dbInfo != null) {
-            Log.d("DBTEST", "Ver:" + dbInfo.version + " Create Time:" + dbInfo.create_time + " Update Time:" + dbInfo.update_time)
+            Log.d("DateBase", "Ver:" + dbInfo.version + " Create Time:" + dbInfo.create_time + " Update Time:" + dbInfo.update_time)
         }
 
         timer.schedule(task, 3000)

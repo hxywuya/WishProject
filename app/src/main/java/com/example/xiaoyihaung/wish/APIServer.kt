@@ -1,7 +1,7 @@
 package com.example.xiaoyihaung.wish
 
 import android.util.Log
-import com.example.xiaoyihaung.wish.data.Wish
+import com.example.xiaoyihaung.wish.model.WishModel.Wish
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
@@ -13,7 +13,7 @@ class APIServer {
 
     open fun getWishList(callback: Callback<Wish>) {
         thread(start = true) {
-            val rd = httpRequest(ApiAddress + "/wish/getlist")
+            val rd = httpRequest("$ApiAddress/wish/getlist")
             val type = object : TypeToken<ArrayList<Wish>>() {}.type
             if (rd != null) {
                 val gson = Gson()
@@ -32,7 +32,7 @@ class APIServer {
                         .build()
                 val response = client.newCall(request).execute()
                 if (response.isSuccessful) {
-                    if (response.code() === 200) {
+                    if (response.code() == 200) {
                         val gson = Gson()
                         val rd = gson.fromJson(response.body()!!.string(), RequestData::class.java)
                         return rd
@@ -44,7 +44,7 @@ class APIServer {
         return null
     }
 
-    open interface Callback<in T> {
+    interface Callback<in T> {
         /**
          * 数据成功获取
          */

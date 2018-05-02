@@ -1,7 +1,6 @@
 package com.example.xiaoyihaung.wish
 
 import android.util.Log
-import com.example.xiaoyihaung.wish.data.DBInfo
 import com.example.xiaoyihaung.wish.model.OptionModel
 import com.google.gson.Gson
 import com.raizlabs.android.dbflow.annotation.Database
@@ -28,7 +27,7 @@ object WishDataBase {
             Log.d("DataBase", "数据库正在初始化")
             var optionModel = OptionModel()
             val gson = Gson()
-            val dbInfo = DBInfo(VERSION,System.currentTimeMillis())
+            val dbInfo = OptionModel.DBInfo(VERSION,System.currentTimeMillis())
             optionModel.name = "DBInfo"
             optionModel.content = gson.toJson(dbInfo)
             optionModel.save(database)

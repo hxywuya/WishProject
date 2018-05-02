@@ -13,12 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.xiaoyihaung.wish.adapter.WishAdapter
-import com.example.xiaoyihaung.wish.dummy.DummyWishs
-import com.example.xiaoyihaung.wish.data.Wish
+import com.example.xiaoyihaung.wish.model.WishModel
+import com.example.xiaoyihaung.wish.model.WishModel.Wish
 import com.example.xiaoyihaung.wish.util.CommonUtil
 import com.example.xiaoyihaung.wish.util.GridSpacingItemDecoration
-
-
 
 
 /**
@@ -37,6 +35,8 @@ class HomeFragment : Fragment() {
 
     private var mListener: OnFragmentInteractionListener? = null
 
+    private var refreshListener: SwipeRefreshLayout.OnRefreshListener? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
@@ -50,21 +50,28 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater!!.inflate(R.layout.fragment_home, container, false)
         // 初始化列表
-        val wishList: RecyclerView = view.findViewById(R.id.wish_list)
-        wishList.layoutManager = LinearLayoutManager(context)
-        wishList.addItemDecoration(GridSpacingItemDecoration(1, CommonUtil.dp2px(context, 12f), true))
-        wishList.adapter = WishAdapter(DummyWishs.WISHS)
+        val wishListView: RecyclerView = view.findViewById(R.id.wish_list)
+        wishListView.layoutManager = LinearLayoutManager(context)
+        wishListView.addItemDecoration(GridSpacingItemDecoration(1, CommonUtil.dp2px(context, 12f), true))
+        var wishModel = WishModel()
+        val wishList = wishModel.getWishList()
+        val wishAdapter = WishAdapter(wishList as MutableList<Wish>)
+        wishListView.adapter = wishAdapter
         // 注册加载事件
         val refreshLayout = view.findViewById(R.id.refresh_layput) as SwipeRefreshLayout
-        refreshLayout.setOnRefreshListener {
+        refreshListener = SwipeRefreshLayout.OnRefreshListener {
             val apiServer = APIServer()
             apiServer.getWishList(object: APIServer.Callback<Wish>{
                 override fun onSuccess(data: List<Wish>) {
-                    Log.d("kwwl", "hahahahaha" + data[0].content + "size:" + data[0].images.size)
+                    Log.d("APIServer", "从API获取的:" + data[0].content + " Size:" + data.size)
                     refreshLayout.isRefreshing = false
                     val act = context as Activity
                     act.runOnUiThread {
-                        wishList.adapter = WishAdapter(data)
+                        wishAdapter.add(0, data)
+                    }
+                    // 将获取到的数据保存到数据库
+                    for (wish in data) {
+                        wishModel.saveData(wish)
                     }
 
                 }
@@ -74,8 +81,12 @@ class HomeFragment : Fragment() {
                 }
             })
         }
-//        refreshLayout.measure(0,0)
-//        refreshLayout.isRefreshing = true
+        refreshLayout.setOnRefreshListener(refreshListener)
+        // 如果首次获取的数据为0 则从API加载
+        if (wishList.isEmpty()) {
+            refreshLayout.isRefreshing = true
+            refreshListener!!.onRefresh()
+        }
         return view
     }
 

@@ -2,9 +2,7 @@ package com.example.xiaoyihaung.wish.model
 
 import android.util.Log
 import com.example.xiaoyihaung.wish.WishDataBase
-import com.example.xiaoyihaung.wish.data.DBInfo
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
@@ -28,10 +26,15 @@ class OptionModel(
         if (info != null) {
             Log.d("DataBase", info.content)
             val gson = Gson()
-            val hminfo: DBInfo = gson.fromJson(info.content, DBInfo::class.java)
-            return hminfo
-//            return info.content!!
+            val dbInfo: DBInfo = gson.fromJson(info.content, DBInfo::class.java)
+            return dbInfo
         }
         return null
     }
+
+    data class DBInfo(
+            var version: Int,
+            var create_time: Long,
+            var update_time: Long = 0
+    )
 }
